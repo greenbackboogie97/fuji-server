@@ -4,7 +4,7 @@ const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
-const morgan = require('morgan');
+// const morgan = require('morgan');
 
 const app = express();
 const usersRouter = require('./routes/usersRouter');
@@ -20,7 +20,7 @@ app.use(cors());
 app.use(helmet());
 
 // Morgan Request Log
-if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
+// if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
 
 // API Rate Limiting
 const limiter = rateLimit({
