@@ -42,7 +42,7 @@ exports.protect = catchAsync(async (req, res, next) => {
   //   next(new AppError('You are not logged in.', 401));
   // }
   // token = req.headers.cookie.split('=')[1];
-  tokem = req.cookies.jwt;
+  token = req.cookies.jwt;
 
   const decoded = await jwt.verify(token, process.env.JWT_SECRET);
 
