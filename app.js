@@ -15,11 +15,11 @@ const errorCluster = require('./controllers/errorController');
 const AppError = require('./utils/appError');
 
 // MIDDLEWARES
-const corsOptions = {
-  origin: '*',
-  allowedHeaders: ['Content-Type', 'Authorization'],
-};
-app.use(cors(corsOptions));
+// const corsOptions = {
+//   origin: '*',
+//   allowedHeaders: ['Content-Type', 'Authorization'],
+// };
+app.use(cors());
 
 // Security HTTP Headers
 app.use(helmet());
