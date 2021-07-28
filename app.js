@@ -15,7 +15,11 @@ const errorCluster = require('./controllers/errorController');
 const AppError = require('./utils/appError');
 
 // MIDDLEWARES
-app.use(cors({ origin: '*' }));
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+app.use(cors(corsOptions}));
 
 // Security HTTP Headers
 app.use(helmet());
