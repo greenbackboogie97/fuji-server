@@ -4,7 +4,6 @@ const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
-// const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 
 const app = express();
@@ -15,21 +14,10 @@ const errorCluster = require('./controllers/errorController');
 const AppError = require('./utils/appError');
 
 // MIDDLEWARES
-// const corsOptions = {
-//   origin: '*',
-//   allowedHeaders: ['Content-Type', 'Authorization'],
-// };
 app.use(cors());
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  next();
-});
 
 // Security HTTP Headers
 app.use(helmet());
-
-// Morgan Request Log
-// if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
 
 // API Rate Limiting
 const limiter = rateLimit({
