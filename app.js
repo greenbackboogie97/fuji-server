@@ -20,6 +20,10 @@ const AppError = require('./utils/appError');
 //   allowedHeaders: ['Content-Type', 'Authorization'],
 // };
 app.use(cors());
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  next();
+});
 
 // Security HTTP Headers
 app.use(helmet());
