@@ -4,6 +4,7 @@ const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
+const cookieParser = require('cookie-parser');
 
 const app = express();
 const usersRouter = require('./routes/usersRouter');
@@ -29,6 +30,12 @@ app.use('/api', limiter);
 
 //Body parser and body payload limit
 app.use(express.json({ limit: '10kb' }));
+app.use(cookieParser());
+
+app.use((req, res, next) => {
+  console.log(req.cookies);
+  next();
+});
 
 //Data sanitization against NOSQL querry injections
 app.use(mongoSanitize());
