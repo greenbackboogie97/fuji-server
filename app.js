@@ -14,7 +14,7 @@ const errorCluster = require('./controllers/errorController');
 const AppError = require('./utils/appError');
 
 // MIDDLEWARES
-app.use(cors());
+app.use(cors({ 'access-control-allow-credentials': true }));
 
 // Security HTTP Headers
 app.use(helmet());
@@ -31,11 +31,6 @@ app.use('/api', limiter);
 //Body parser and body payload limit
 app.use(express.json({ limit: '10kb' }));
 app.use(cookieParser());
-
-app.use((req, res, next) => {
-  console.log(req.cookies);
-  next();
-});
 
 //Data sanitization against NOSQL querry injections
 app.use(mongoSanitize());
