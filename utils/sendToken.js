@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 const signToken = (id) =>
-  jwt.sign({ id: id }, process.env.JWT_SECRET, {
+  jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES_IN,
   });
 
@@ -15,7 +15,7 @@ const sendToken = (user, status, message, res) => {
     secure: process.env.NODE_ENV === 'production' ? true : false,
   };
 
-  // res.cookie('jwt', token, cookieOptions);
+  res.cookie('jwt', token, cookieOptions);
 
   user.password = undefined;
   user.passwordChangedAt = undefined;
@@ -25,7 +25,6 @@ const sendToken = (user, status, message, res) => {
   res.status(status).json({
     status: 'success',
     message,
-    token,
     data: {
       user,
     },
