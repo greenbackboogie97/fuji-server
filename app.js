@@ -5,6 +5,7 @@ const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 // const morgan = require('morgan');
+const cookieParser = require('cookie-parser');
 
 const app = express();
 const usersRouter = require('./routes/usersRouter');
@@ -39,6 +40,8 @@ app.use(mongoSanitize());
 
 //Data sanitization against XSS
 app.use(xss());
+
+app.use(cookieParser);
 
 // ROUTES
 app.use('/users', usersRouter);

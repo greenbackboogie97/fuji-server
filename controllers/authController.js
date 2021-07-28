@@ -35,13 +35,9 @@ exports.login = catchAsync(async (req, res, next) => {
 
 exports.protect = catchAsync(async (req, res, next) => {
   let token;
-  // if (
-  //   !req.headers.cookie.startsWith('jwt') ||
-  //   !req.headers.cookie.split('=')[1]
-  // ) {
-  //   next(new AppError('You are not logged in.', 401));
-  // }
-  // token = req.headers.cookie.split('=')[1];
+  if (!req.cookies.jwt) {
+    next(new AppError('You are not logged in.', 401));
+  }
   token = req.cookies.jwt;
 
   const decoded = await jwt.verify(token, process.env.JWT_SECRET);
