@@ -36,8 +36,6 @@ app.use(mongoSanitize());
 //Data sanitization against XSS
 app.use(xss());
 
-app.use(cookieParser);
-
 // ROUTES
 app.use('/users', usersRouter);
 app.use('/friends', friendsRouter);
