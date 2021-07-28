@@ -15,7 +15,7 @@ const errorCluster = require('./controllers/errorController');
 const AppError = require('./utils/appError');
 
 // MIDDLEWARES
-app.use(cors());
+app.use(cors({ origin: '*' }));
 
 // Security HTTP Headers
 app.use(helmet());
