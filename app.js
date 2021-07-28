@@ -14,7 +14,12 @@ const errorCluster = require('./controllers/errorController');
 const AppError = require('./utils/appError');
 
 // MIDDLEWARES
-app.use(cors({ 'access-control-allow-credentials': true }));
+app.use(
+  cors({
+    origin: 'http://localhost:3000',
+    'access-control-allow-credentials': true,
+  })
+);
 
 // Security HTTP Headers
 app.use(helmet());
