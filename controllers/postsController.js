@@ -13,6 +13,7 @@ exports.getPosts = catchAsync(async (req, res, next) => {
   }
   const posts = await Post.find(query)
     .populate({ path: 'author', select: '-friends' })
+    .populate({ path: 'likes', select: '-friends' })
     .sort('-createdAt');
 
   res.status(200).json({
@@ -62,7 +63,9 @@ exports.getComments = catchAsync(async (req, res, next) => {
   const post = await Post.findById(req.params.id);
   if (!post) return next(new AppError('This post does not exist', 400));
 
-  const comments = await Comment.find({ post: post._id }).sort('+createdAt');
+  const comments = await Comment.find({ post: post._id })
+    .populate({ path: 'author', select: '-friends' })
+    .sort('+createdAt');
 
   res.status(200).json({
     status: 'success',
