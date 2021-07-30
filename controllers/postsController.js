@@ -11,7 +11,9 @@ exports.getPosts = catchAsync(async (req, res, next) => {
   } else if (req.params.feed === 'community') {
     query = null;
   }
-  const posts = await Post.find(query).sort('-createdAt');
+  const posts = await Post.find(query)
+    .populate({ path: 'author', select: '-friends' })
+    .sort('-createdAt');
 
   res.status(200).json({
     status: 'success',
