@@ -50,7 +50,12 @@ exports.deletePost = catchAsync(async (req, res, next) => {
       new AppError('This post is either not yours or not exists.', 401)
     );
 
-  res.status(204).json({});
+  res.status(204).json({
+    status: 'success',
+    data: {
+      deletedID: req.params.id,
+    },
+  });
 });
 
 exports.getComments = catchAsync(async (req, res, next) => {
