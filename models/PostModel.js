@@ -30,8 +30,7 @@ const postSchema = new mongoose.Schema({
 });
 
 postSchema.pre('save', function (next) {
-  if (!this.isNew) next();
-  this.createdAt = new Date(Date.now());
+  if (this.isNew) this.createdAt = new Date(Date.now());
   next();
 });
 
