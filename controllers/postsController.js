@@ -95,10 +95,15 @@ exports.addComment = catchAsync(async (req, res, next) => {
     await post.save();
   }
 
+  const populatedComment = await Comment.findById(comment._id).populate({
+    path: 'author',
+    select: '-friends',
+  });
+
   res.status(201).json({
     status: 'success',
     data: {
-      comment,
+      comment: populatedComment,
     },
   });
 });
