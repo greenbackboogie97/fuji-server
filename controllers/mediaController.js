@@ -9,9 +9,7 @@ exports.uploadMedia = catchAsync(async (req, res, next) => {
   const user = await User.findById(id);
   const fileStr = req.body.data;
 
-  const media = await cloudinary.uploader
-    .upload(fileStr)
-    .catch((err) => console.log(err));
+  const media = await cloudinary.uploader.upload(fileStr);
 
   res.status(200).json({
     status: 'success',

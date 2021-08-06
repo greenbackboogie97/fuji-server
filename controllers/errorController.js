@@ -18,6 +18,7 @@ const handleUnoperationalErrors = (res) =>
   });
 
 const handleProductionErrors = (err, res) => {
+  console.log(err);
   if (err.operational)
     res.status(err.statusCode).json({
       status: err.status,
