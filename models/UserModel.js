@@ -30,6 +30,13 @@ const userSchema = new mongoose.Schema({
       message: 'Passwords must match!',
     },
   },
+  profilePicture: String,
+  media: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Media',
+    },
+  ],
   passwordChangedAt: Date,
   passwordResetToken: String,
   passwordResetTokenExpire: Date,
@@ -50,9 +57,8 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
-userSchema.methods.validatePassword = async (candidatePassword, hash) => {
-  return await bcrypt.compare(candidatePassword, hash);
-};
+userSchema.methods.validatePassword = async (candidatePassword, hash) =>
+  await bcrypt.compare(candidatePassword, hash);
 
 userSchema.methods.checkPasswordChanged = function (tokenIAT) {
   if (!this.passwordChangedAt) return false;

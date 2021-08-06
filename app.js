@@ -10,6 +10,7 @@ const app = express();
 const usersRouter = require('./routes/usersRouter');
 const friendsRouter = require('./routes/friendsRouter');
 const postsRouter = require('./routes/postsRouter');
+const mediaRouter = require('./routes/mediaRouter');
 const errorCluster = require('./controllers/errorController');
 const AppError = require('./utils/appError');
 
@@ -47,6 +48,7 @@ app.use(xss());
 app.use('/users', usersRouter);
 app.use('/friends', friendsRouter);
 app.use('/posts', postsRouter);
+app.use('/media', mediaRouter);
 app.all('*', (req, res, next) =>
   next(new AppError(`Sorry this page does'nt exist.`, 404))
 );

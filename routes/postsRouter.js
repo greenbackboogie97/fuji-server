@@ -11,14 +11,16 @@ router.delete('/:id', authController.protect, postsController.deletePost);
 // comments
 router
   .route('/:id/comment')
-  .get(authController.protect, postsController.getComments)
-  .post(authController.protect, postsController.addComment)
-  .delete(authController.protect, postsController.deleteComment);
+  .all(authController.protect)
+  .get(postsController.getComments)
+  .post(postsController.addComment)
+  .delete(postsController.deleteComment);
 
 // likes
 router
   .route('/:id/like')
-  .post(authController.protect, postsController.likePost)
-  .delete(authController.protect, postsController.unlikePost);
+  .all(authController.protect)
+  .post(postsController.likePost)
+  .delete(postsController.unlikePost);
 
 module.exports = router;

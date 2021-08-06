@@ -34,14 +34,6 @@ postSchema.pre('save', function (next) {
   next();
 });
 
-postSchema.virtual('countComments').get(function () {
-  return this.comments.length;
-});
-
-postSchema.virtual('countLikes').get(function () {
-  return this.likes.length;
-});
-
 const Post = new mongoose.model('Post', postSchema);
 
 module.exports = Post;
