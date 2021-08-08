@@ -1,4 +1,3 @@
-const fs = require('fs');
 const Post = require('../models/PostModel');
 const Comment = require('../models/CommentModel');
 const catchAsync = require('../utils/catchAsync');

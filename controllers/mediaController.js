@@ -1,3 +1,5 @@
+const fs = require('fs');
+
 exports.uploadMedia = async (req, res) => {
   const files = await fs.readdir('../uploads');
 
