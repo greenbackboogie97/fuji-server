@@ -25,7 +25,7 @@ exports.getPosts = catchAsync(async (req, res, next) => {
 });
 
 exports.createPost = catchAsync(async (req, res, next) => {
-  const { content, mediaID } = req.body;
+  const { content } = req.body;
 
   const post = await Post.create({
     author: req.user._id,

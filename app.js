@@ -1,12 +1,9 @@
 const express = require('express');
+const app = express();
 const cors = require('cors');
-const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
-const cookieParser = require('cookie-parser');
-
-const app = express();
 const usersRouter = require('./routes/usersRouter');
 const friendsRouter = require('./routes/friendsRouter');
 const postsRouter = require('./routes/postsRouter');
@@ -14,7 +11,6 @@ const mediaRouter = require('./routes/mediaRouter');
 const errorCluster = require('./controllers/errorController');
 const AppError = require('./utils/appError');
 
-// MIDDLEWARES
 app.use(
   cors({
     origin: 'http://localhost:3000',
@@ -22,29 +18,11 @@ app.use(
   })
 );
 
-// Security HTTP Headers
 app.use(helmet());
-
-// API Rate Limiting
-const limiter = rateLimit({
-  max: 100,
-  windowMs: 60 * 60 * 1000,
-  message: 'Too many request from this IP! Please try again in an hour.',
-});
-
-app.use('/api', limiter);
-
-//Body parser and body payload limit
-app.use(express.json({ limit: '10kb' }));
-app.use(cookieParser());
-
-//Data sanitization against NOSQL querry injections
+app.use(express.json({ limit: '10mb' }));
 app.use(mongoSanitize());
-
-//Data sanitization against XSS
 app.use(xss());
 
-// ROUTES
 app.use('/users', usersRouter);
 app.use('/friends', friendsRouter);
 app.use('/posts', postsRouter);

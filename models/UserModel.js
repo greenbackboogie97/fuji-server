@@ -30,7 +30,17 @@ const userSchema = new mongoose.Schema({
       message: 'Passwords must match!',
     },
   },
-  profilePicture: String,
+  bio: {
+    type: String,
+    validate: [
+      (el) => el.length < 60,
+      'Your bio can be no longer than 60 characters.',
+    ],
+  },
+  profilePicture: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'Media',
+  },
   media: [
     {
       type: mongoose.Schema.ObjectId,

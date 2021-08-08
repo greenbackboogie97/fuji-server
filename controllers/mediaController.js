@@ -1,13 +1,11 @@
-const fs = require('fs');
+const catchAsync = require('../utils/catchAsync');
 
-exports.uploadMedia = async (req, res) => {
-  await fs.readdir('../uploads', (err, files) => {
-    res.status(201).json({
-      status: 'success',
-      message: 'Media uploaded to server.',
-      data: {
-        files,
-      },
-    });
+exports.uploadMedia = catchAsync(async (req, res, next) => {
+  const file = req.body.data;
+  res.status(200).json({
+    status: 'success',
+    data: {
+      file,
+    },
   });
-};
+});
