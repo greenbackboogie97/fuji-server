@@ -1,3 +1,4 @@
+const fs = require('fs');
 const Post = require('../models/PostModel');
 const Comment = require('../models/CommentModel');
 const catchAsync = require('../utils/catchAsync');
@@ -25,10 +26,7 @@ exports.getPosts = catchAsync(async (req, res, next) => {
 });
 
 exports.createPost = catchAsync(async (req, res, next) => {
-  const { content, type } = req.body;
-  if (type === 'media') {
-    
-  }
+  const { content, mediaID } = req.body;
 
   const post = await Post.create({
     author: req.user._id,
