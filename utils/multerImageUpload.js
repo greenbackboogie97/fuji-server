@@ -5,7 +5,7 @@ const multerStorage = multer.diskStorage({
   destination: 'uploads/',
   filename: (req, file, cb) => {
     const ext = file.mimetype.split('/')[1];
-    cb(null, `user-${req.user._id}-${Date.now()}.${ext}`);
+    cb(null, `user-${req.user._id}/${req.body.id}.${ext}`);
   },
 });
 const multerFilter = (req, file, cb) => {

@@ -14,6 +14,12 @@ const postSchema = new mongoose.Schema({
     },
     required: [true, 'Post must have content.'],
   },
+  media: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Media',
+    },
+  ],
   comments: [
     {
       type: mongoose.Schema.ObjectId,

@@ -25,7 +25,10 @@ exports.getPosts = catchAsync(async (req, res, next) => {
 });
 
 exports.createPost = catchAsync(async (req, res, next) => {
-  const { content } = req.body;
+  const { content, type } = req.body;
+  if (type === 'media') {
+    
+  }
 
   const post = await Post.create({
     author: req.user._id,
