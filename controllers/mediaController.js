@@ -15,6 +15,9 @@ exports.uploadMedia = catchAsync(async (req, res, next) => {
     public_id: `${req.user._id}-${Date.now()}`,
   });
 
+  const URL = upload.secure_url;
+  
+
   res.status(200).json({
     status: 'success',
     data: {

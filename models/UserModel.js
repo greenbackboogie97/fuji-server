@@ -37,16 +37,8 @@ const userSchema = new mongoose.Schema({
       'Your bio can be no longer than 60 characters.',
     ],
   },
-  profilePicture: {
-    type: mongoose.Schema.ObjectId,
-    ref: 'Media',
-  },
-  media: [
-    {
-      type: mongoose.Schema.ObjectId,
-      ref: 'Media',
-    },
-  ],
+  profilePicture: String,
+  media: [String],
   passwordChangedAt: Date,
   passwordResetToken: String,
   passwordResetTokenExpire: Date,
