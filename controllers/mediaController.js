@@ -11,7 +11,7 @@ exports.uploadMedia = catchAsync(async (req, res, next) => {
 
   const upload = await cloudinary.uploader.upload(fileURL, {
     upload_preset: 'fuji',
-    public_id: `${req.user._id}/${new Date()}`,
+    public_id: `${req.user._id}/${Date.now()}`,
   });
 
   res.status(200).json({
