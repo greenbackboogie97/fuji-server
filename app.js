@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const helmet = require('helmet');
+const cookieParser = require('cookie-parser');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const usersRouter = require('./routes/usersRouter');
@@ -20,6 +21,7 @@ app.use(
 
 app.use(helmet());
 app.use(express.json({ limit: '10mb' }));
+app.use(cookieParser());
 app.use(mongoSanitize());
 app.use(xss());
 
