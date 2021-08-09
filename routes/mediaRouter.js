@@ -4,5 +4,6 @@ const authController = require('../controllers/authController');
 const mediaController = require('../controllers/mediaController');
 
 Router.post('/', authController.protect, mediaController.uploadMedia);
+Router.get('/:id', authController.protect, mediaController.getMediaByID);
 
 module.exports = Router;
