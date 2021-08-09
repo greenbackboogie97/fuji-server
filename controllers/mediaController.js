@@ -30,10 +30,13 @@ exports.getMediaByID = catchAsync(async (req, res, next) => {
     return next(new AppError('Provided ID does not match any existing user.'));
 
   const fetch = await cloudinary.search.expression(id).execute();
-  const URL = fetch.resources[0].secure_url;
+  const media = [];
+  fetch.resources.map((resource) => {
+    return media.push(resource.secure_url);
+  });
 
   res.status(200).json({
     status: 'success',
-    URL,
+    media,
   });
 });
