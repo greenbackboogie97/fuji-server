@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const AppError = require('../utils/appError');
 
 const postSchema = new mongoose.Schema({
   author: {
@@ -12,14 +13,8 @@ const postSchema = new mongoose.Schema({
       validator: (content) => content.length < 6000,
       message: 'A post can be no longer than 6,000 characters long.',
     },
-    required: [true, 'Post must have content.'],
   },
-  media: [
-    {
-      type: mongoose.Schema.ObjectId,
-      ref: 'Media',
-    },
-  ],
+  media: [String],
   comments: [
     {
       type: mongoose.Schema.ObjectId,
@@ -37,6 +32,12 @@ const postSchema = new mongoose.Schema({
 
 postSchema.pre('save', function (next) {
   if (this.isNew) this.createdAt = new Date(Date.now());
+  next();
+});
+
+postSchema.pre('save', function (next) {
+  if (!this.content && !this.media)
+    return next(new AppError('Post must have either content or media.', 400));
   next();
 });
 
