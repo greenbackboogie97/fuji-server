@@ -38,7 +38,6 @@ const userSchema = new mongoose.Schema({
     ],
   },
   profilePicture: String,
-  media: [String],
   passwordChangedAt: Date,
   passwordResetToken: String,
   passwordResetTokenExpire: Date,
