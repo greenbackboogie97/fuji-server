@@ -4,14 +4,14 @@ const { cloudinary } = require('../utils/cloudinary');
 
 exports.uploadMedia = catchAsync(async (req, res, next) => {
   const fileURL = req.body.data;
-  console.log(fileURL);
-  // if (!fileURL)
-  //   return next(
-  //     new AppError('The server did not recive a file URL to upload.', 400)
-  //   );
+  if (!fileURL)
+    return next(
+      new AppError('The server did not recive a file URL to upload.', 400)
+    );
 
   const upload = await cloudinary.uploader.upload(fileURL, {
     upload_preset: 'fuji',
+    public_id: `${req.user._id}/${new Date()}`,
   });
 
   res.status(200).json({
