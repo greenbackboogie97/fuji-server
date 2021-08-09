@@ -16,6 +16,7 @@ exports.uploadMedia = catchAsync(async (req, res, next) => {
   });
 
   const URL = upload.secure_url;
+  console.log(URL);
   const user = req.user;
   user.media.push(URL);
   await user.save();
