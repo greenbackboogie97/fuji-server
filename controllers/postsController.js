@@ -6,13 +6,11 @@ const AppError = require('../utils/appError');
 exports.getPosts = catchAsync(async (req, res, next) => {
   let query;
 
-  if (req.params.feed === 'community') {
-    query = null;
-  }
   if (req.params.feed === 'friends') {
     query = { author: { $in: [req.user._id, ...req.user.friends] } };
-  } else {
-    query = { author: { _id: req.params.feed } };
+  }
+  if (req.params.feed.startWith('id-')) {
+    query = { author: { _id: req.params.feed.split('-')[1] } };
   }
 
   const posts = await Post.find(query)
