@@ -8,9 +8,13 @@ exports.getPosts = catchAsync(async (req, res, next) => {
 
   if (req.params.feed === 'friends') {
     query = { author: { $in: [req.user._id, ...req.user.friends] } };
-  } else if (req.params.feed === 'community') {
-    query = null;
   }
+  if (req.params.feed === 'community') {
+    query = null;
+  } else {
+    query = { author: { _id: req.params.feed } };
+  }
+
   const posts = await Post.find(query)
     .populate({ path: 'author', select: '-friends' })
     .populate({ path: 'likes', select: '-friends' })
