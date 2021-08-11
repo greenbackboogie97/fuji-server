@@ -31,7 +31,7 @@ exports.addFriend = catchAsync(async (req, res, next) => {
     status: 'success',
     message: `You and ${userToAdd.name} are now friends!`,
     data: {
-      friends: user.friends.length,
+      friends: user._id,
     },
   });
 });
