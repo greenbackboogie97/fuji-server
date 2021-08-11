@@ -14,7 +14,7 @@ const handleDuplicateFieldsDB = (err) => {
 const handleUnoperationalErrors = (res) =>
   res.status(500).json({
     status: 'error',
-    message: 'Something went wront...',
+    message: 'Something went wrong...',
   });
 
 const handleProductionErrors = (err, res) => {
