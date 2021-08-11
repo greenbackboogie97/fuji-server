@@ -9,7 +9,7 @@ exports.getPosts = catchAsync(async (req, res, next) => {
   if (req.params.feed === 'friends') {
     query = { author: { $in: [req.user._id, ...req.user.friends] } };
   }
-  if (req.params.feed.startWith('id-')) {
+  if (req.params.feed.startsWith('id-')) {
     query = { author: { _id: req.params.feed.split('-')[1] } };
   }
 
