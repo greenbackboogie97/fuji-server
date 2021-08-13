@@ -2,6 +2,21 @@ const User = require('../models/UserModel');
 const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
 
+exports.getFriends = catchAsync(async (req, res, next) => {
+  const friends = await User.findById(req.user._id)
+    .populate({
+      path: 'friends',
+    })
+    .select('friends');
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      friends: friends.friends,
+    },
+  });
+});
+
 exports.addFriend = catchAsync(async (req, res, next) => {
   const user = req.user;
 
