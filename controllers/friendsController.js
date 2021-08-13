@@ -3,7 +3,7 @@ const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
 
 exports.getFriends = catchAsync(async (req, res, next) => {
-  const friends = await User.findById(req.user._id)
+  const friends = await User.findById(req.params.id)
     .populate({
       path: 'friends',
     })
