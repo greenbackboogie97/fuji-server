@@ -14,6 +14,8 @@ router.patch(
   usersController.changePassword
 );
 
+router.patch('/', authController.protect, usersController.editUser);
+
 router.get('/', authController.protect, usersController.getAllUsers);
 router.get('/:id', authController.protect, usersController.getUser);
 
