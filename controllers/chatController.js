@@ -35,6 +35,30 @@ exports.getConversations = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.getConversation = catchAsync(async (req, res, next) => {
+  const conversation = await Conversation.findOne({
+    _id: req.params.id,
+    participants: { $in: [req.user._id] },
+  })
+    .populate({ path: 'participants', select: '-passwordChangedAt' })
+    .populate({ path: 'messages' });
+
+  if (!conversation)
+    return next(
+      new AppError(
+        'The conversation is either not exist or you do not have access to it.',
+        401
+      )
+    );
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      conversation,
+    },
+  });
+});
+
 exports.getMessages = catchAsync(async (req, res, next) => {
   const messages = await Message.find({ conversation: req.params.id });
 
