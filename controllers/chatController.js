@@ -60,7 +60,7 @@ exports.getConversation = catchAsync(async (req, res, next) => {
 });
 
 exports.getMessages = catchAsync(async (req, res, next) => {
-  const messages = await Message.findOne({
+  const messages = await Message.find({
     conversation: req.params.id,
   }).populate({ path: 'author', select: '-passwordChangedAt' });
 
