@@ -7,9 +7,14 @@ Router.post(
   authController.protect,
   chatController.createConversation
 );
-
 Router.get('/', authController.protect, chatController.getConversations);
 Router.get('/:id', authController.protect, chatController.getConversation);
+
 Router.get('/:id/messages', authController.protect, chatController.getMessages);
+Router.post(
+  '/:id/messages',
+  authController.protect,
+  chatController.sendMessage
+);
 
 module.exports = Router;

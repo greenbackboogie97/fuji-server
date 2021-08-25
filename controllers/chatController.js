@@ -60,12 +60,47 @@ exports.getConversation = catchAsync(async (req, res, next) => {
 });
 
 exports.getMessages = catchAsync(async (req, res, next) => {
-  const messages = await Message.find({ conversation: req.params.id });
+  const messages = await Message.findOne({
+    conversation: req.params.id,
+  }).populate({ path: 'author', select: '-passwordChangedAt' });
 
   res.status(200).json({
     status: 'success',
     data: {
       messages,
+    },
+  });
+});
+
+exports.sendMessage = catchAsync(async (req, res, next) => {
+  const { content } = req.body;
+
+  const conversation = await Conversation.findOne({
+    _id: req.params.id,
+    participants: { $in: [req.user._id] },
+  });
+
+  if (!conversation)
+    return next(
+      new AppError(
+        'The conversation is either not exist or you do not have access to it.',
+        401
+      )
+    );
+
+  const message = await Message.create({
+    conversation: conversation._id,
+    author: req.user._id,
+    content,
+  });
+
+  conversation.messages.push(message._id);
+  conversation.save();
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      message,
     },
   });
 });
