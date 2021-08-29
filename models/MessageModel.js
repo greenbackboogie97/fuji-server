@@ -15,15 +15,12 @@ const messageSchema = mongoose.Schema({
     type: String,
     required: [true, 'message must have content'],
   },
-  sentAt: Date,
+  sentAt: {
+    type: Date,
+    default: Date.now(),
+  },
 });
 
 const Message = mongoose.model('Message', messageSchema);
-
-messageSchema.pre('save', function (next) {
-  if (!this.isNew) return next();
-  this.sentAt = new Date();
-  next();
-});
 
 module.exports = Message;
