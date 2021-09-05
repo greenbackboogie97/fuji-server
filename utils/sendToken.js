@@ -9,7 +9,7 @@ const sendToken = (user, status, message, res) => {
   const token = signToken(user._id);
 
   const cookieOptions = {
-    expires: new Date(
+    Expires: new Date(
       Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
     ),
     httpOnly: true,
