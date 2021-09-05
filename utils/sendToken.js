@@ -29,6 +29,7 @@ const sendToken = (user, status, message, res) => {
     message,
     data: {
       user,
+      token,
     },
   });
 };
