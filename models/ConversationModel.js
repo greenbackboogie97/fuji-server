@@ -8,12 +8,7 @@ const conversationSchema = mongoose.Schema({
       required: [true, 'conversation must have participants'],
     },
   ],
-  messages: [
-    {
-      type: mongoose.Schema.ObjectId,
-      ref: 'Message',
-    },
-  ],
+  messages: [],
 });
 
 const Conversation = mongoose.model('Conversation', conversationSchema);
