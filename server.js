@@ -1,5 +1,6 @@
 require('dotenv').config();
 const server = require('./app');
+const socketServer = require('./socket');
 const mongoose = require('mongoose');
 
 mongoose
@@ -23,16 +24,6 @@ server.listen(PORT, () =>
   console.log(`${process.env.NODE_ENV} server is listening on port ${PORT}..`)
 );
 
-process.on('unhandledRejection', (err) => {
-  console.error(err.name, err.message);
-  server.close(() => {
-    process.exit(1);
-  });
-});
-
-process.on('uncaughtException', (err) => {
-  console.log(err);
-  server.close(() => {
-    process.exit(1);
-  });
+socketServer.listen(2500, () => {
+  console.log('socket server is listening on port 2500..');
 });
