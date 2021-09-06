@@ -147,6 +147,9 @@ exports.likePost = catchAsync(async (req, res, next) => {
 
   res.status(200).json({
     status: 'success',
+    data: {
+      like: req.user._id,
+    },
   });
 });
 
@@ -161,5 +164,10 @@ exports.unlikePost = catchAsync(async (req, res, next) => {
   post.likes.splice(likeIndex, 1);
   await post.save();
 
-  res.status(201).json({});
+  res.status(201).json({
+    status: 'success',
+    data: {
+      removedLike: req.user._id,
+    },
+  });
 });
