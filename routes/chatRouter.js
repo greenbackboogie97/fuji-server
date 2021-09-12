@@ -2,18 +2,11 @@ const Router = require('express').Router();
 const authController = require('../controllers/authController');
 const chatController = require('../controllers/chatController');
 
-Router.post(
-  '/:userID',
-  authController.protect,
-  chatController.createConversation
-);
-Router.get('/', authController.protect, chatController.getConversations);
-Router.get('/:id', authController.protect, chatController.getConversation);
+Router.use(authController.protect);
 
-Router.post(
-  '/:id/messages',
-  authController.protect,
-  chatController.sendMessage
-);
+Router.post('/:userID', chatController.createConversation);
+Router.get('/', chatController.getConversations);
+Router.get('/:id', chatController.getConversation);
+Router.post('/:id/messages', chatController.sendMessage);
 
 module.exports = Router;

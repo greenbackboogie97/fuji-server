@@ -1,12 +1,12 @@
 const express = require('express');
-const router = express.Router();
+const Router = express.Router();
 const authController = require('../controllers/authController');
 const friendsController = require('../controllers/friendsController');
 
-router
+Router.use(authController.protect)
   .route('/:id')
-  .get(authController.protect, friendsController.getFriends)
-  .patch(authController.protect, friendsController.addFriend)
-  .delete(authController.protect, friendsController.unfriend);
+  .get(friendsController.getFriends)
+  .patch(friendsController.addFriend)
+  .delete(friendsController.unfriend);
 
-module.exports = router;
+module.exports = Router;

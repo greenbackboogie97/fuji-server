@@ -1,5 +1,5 @@
 require('dotenv').config();
-const server = require('./socketServer');
+const server = require('./socket');
 const connectMongo = require('./utils/connectMongo');
 
 connectMongo(`${process.env.NODE_ENV} server`);

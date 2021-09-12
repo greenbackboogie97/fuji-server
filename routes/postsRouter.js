@@ -1,26 +1,24 @@
 const express = require('express');
-const router = express.Router();
+const Router = express.Router();
 const authController = require('../controllers/authController');
 const postsController = require('../controllers/postsController');
 
+Router.use(authController.protect);
+
 // posts
-router.get('/:feed', authController.protect, postsController.getPosts);
-router.post('/', authController.protect, postsController.createPost);
-router.delete('/:id', authController.protect, postsController.deletePost);
+Router.get('/:feed', postsController.getPosts);
+Router.post('/', postsController.createPost);
+Router.delete('/:id', postsController.deletePost);
 
 // comments
-router
-  .route('/:id/comment')
-  .all(authController.protect)
+Router.route('/:id/comment')
   .get(postsController.getComments)
   .post(postsController.addComment)
   .delete(postsController.deleteComment);
 
 // likes
-router
-  .route('/:id/like')
-  .all(authController.protect)
+Router.route('/:id/like')
   .post(postsController.likePost)
   .delete(postsController.unlikePost);
 
-module.exports = router;
+module.exports = Router;
