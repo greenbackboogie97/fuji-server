@@ -3,7 +3,6 @@ const User = require('../models/UserModel');
 const AppError = require('../utils/appError');
 const sendToken = require('../utils/sendToken');
 const restrictedUpdate = require('../utils/restrictedUpdate');
-const { findByIdAndUpdate } = require('../models/UserModel');
 
 exports.getAllUsers = catchAsync(async (req, res, next) => {
   const users = await User.find();
@@ -11,7 +10,6 @@ exports.getAllUsers = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: 'success',
     data: {
-      results: users.length,
       users,
     },
   });

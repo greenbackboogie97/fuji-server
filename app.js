@@ -15,7 +15,7 @@ const AppError = require('./utils/appError');
 
 app.use(
   cors({
-    origin: 'http://localhost:3000',
+    origin: 'https://fujiclient.netlify.app',
     credentials: true,
   })
 );
