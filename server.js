@@ -1,29 +1,11 @@
 require('dotenv').config();
-const server = require('./app');
-const socketServer = require('./socket');
-const mongoose = require('mongoose');
+const server = require('./socketServer');
+const connectMongo = require('./utils/connectMongo');
 
-mongoose
-  .connect(
-    process.env.DB_CLUSTER_CONNECTION.replace(
-      '<password>',
-      process.env.DB_PASSWORD
-    ),
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useCreateIndex: true,
-    }
+connectMongo(`${process.env.NODE_ENV} server`);
+
+server.listen(process.env.PORT, () =>
+  console.log(
+    `${process.env.NODE_ENV} server is listening on port ${process.env.PORT}..`
   )
-  .then(() => console.log('server is integrated with MongoDB!'))
-  .catch((err) => console.error(err));
-
-const PORT = process.env.PORT || 5000;
-
-server.listen(PORT, () =>
-  console.log(`${process.env.NODE_ENV} server is listening on port ${PORT}..`)
 );
-
-socketServer.listen(2500, () => {
-  console.log('socket server is listening on port 2500..');
-});

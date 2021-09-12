@@ -13,6 +13,11 @@ exports.createConversation = catchAsync(async (req, res, next) => {
     participants: [req.user._id, req.params.userID],
   });
 
+  conversation.populate({
+    path: 'participants',
+    select: '-passwordChangedAt -friends -email -__v',
+  });
+
   res.status(200).json({
     status: 'success',
     data: {
@@ -24,7 +29,12 @@ exports.createConversation = catchAsync(async (req, res, next) => {
 exports.getConversations = catchAsync(async (req, res, next) => {
   const conversations = await Conversation.find({
     participants: { $in: [req.user._id] },
-  }).populate({ path: 'participants', select: '-passwordChangedAt' });
+  })
+    .populate({
+      path: 'participants',
+      select: '-passwordChangedAt -friends -email -__v',
+    })
+    .select('-messages');
 
   res.status(200).json({
     status: 'success',
@@ -38,7 +48,10 @@ exports.getConversation = catchAsync(async (req, res, next) => {
   const conversation = await Conversation.findOne({
     _id: req.params.id,
     participants: { $in: [req.user._id] },
-  }).populate({ path: 'participants', select: '-passwordChangedAt' });
+  }).populate({
+    path: 'participants',
+    select: '-passwordChangedAt -friends -email -__v',
+  });
 
   if (!conversation)
     return next(
