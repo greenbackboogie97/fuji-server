@@ -9,6 +9,7 @@ const postSchema = new mongoose.Schema({
   },
   content: {
     type: String,
+    trim: false,
     validate: {
       validator: (content) => content.length < 6000,
       message: 'A post can be no longer than 6,000 characters long.',
