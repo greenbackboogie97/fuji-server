@@ -15,9 +15,12 @@ const sendToken = (user, status, message, res) => {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production' ? true : false,
     sameSite: 'none',
+    path: '/',
   };
 
   res.cookie('jwt', token, cookieOptions);
+
+  res.head;
 
   user.password = undefined;
   user.passwordChangedAt = undefined;
