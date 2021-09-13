@@ -13,7 +13,7 @@ exports.createConversation = catchAsync(async (req, res, next) => {
     participants: [req.user._id, req.params.userID],
   });
 
-  conversation.populate({
+  await conversation.populate({
     path: 'participants',
     select: '-passwordChangedAt -friends -email -__v',
   });
