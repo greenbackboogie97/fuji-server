@@ -13,7 +13,7 @@ exports.createConversation = catchAsync(async (req, res, next) => {
     participants: [req.user._id, req.params.userID],
   });
 
-  await conversation.populate({
+  const populated = await Conversation.populate(conversation, {
     path: 'participants',
     select: '-passwordChangedAt -friends -email -__v',
   });
@@ -21,7 +21,7 @@ exports.createConversation = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: 'success',
     data: {
-      conversation,
+      conversation: populated,
     },
   });
 });
