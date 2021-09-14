@@ -2,7 +2,9 @@ const server = require('./app');
 const Conversation = require('./models/ConversationModel');
 const socketServer = require('http').createServer(server);
 const io = require('socket.io')(socketServer, {
-  cors: { origin: 'https://fujiclient.netlify.app' },
+  cors: {
+    origin: ['https://fuji.omerziger.com', 'https://fujiclient.netlify.app'],
+  },
 });
 
 let connectedUsers = {};
