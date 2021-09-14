@@ -14,7 +14,6 @@ const sendToken = (user, status, message, res) => {
     ),
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production' ? true : false,
-    sameSite: 'none',
     domain: 'omerziger.com',
   };
 
