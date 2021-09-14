@@ -15,7 +15,7 @@ const AppError = require('./utils/appError');
 
 app.use(
   cors({
-    origin: 'https://fuji.omerziger.com',
+    origin: ['https://fuji.omerziger.com', 'https://fujiclient.netlify.app'],
     credentials: true,
   })
 );
