@@ -63,6 +63,10 @@ exports.protect = catchAsync(async (req, res, next) => {
   next();
 });
 
+exports.returnUser = (req, res) => {
+  res.status(200).json({ status: 'success', user: req.user });
+};
+
 exports.forgotPassword = catchAsync(async (req, res, next) => {
   const email = req.body.email;
   if (!email) next(new AppError('Please provide an email.'));
