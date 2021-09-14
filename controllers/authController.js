@@ -63,6 +63,11 @@ exports.protect = catchAsync(async (req, res, next) => {
   next();
 });
 
+exports.signout = (req, res) => {
+  res.clearCookie('jwt');
+  res.status(204).json({});
+};
+
 exports.returnUser = (req, res) => {
   res.status(200).json({ status: 'success', user: req.user });
 };
