@@ -64,7 +64,7 @@ exports.protect = catchAsync(async (req, res, next) => {
 });
 
 exports.signout = (req, res) => {
-  res.clearCookie('jwt');
+  res.clearCookie('jwt', { domain: 'omerziger.com' });
   res.status(204).json({});
 };
 
