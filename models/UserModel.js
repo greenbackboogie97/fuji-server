@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
     validate: {
       validator: validator.isStrongPassword,
       message:
-        'Required at least 8 chars, 1 Lowercase, 1 Uppercase, 1 Number, 1 Symbol.',
+        'Required at least 8 chars, 1 Lowercase, 1 Uppercase, 1 Number, 1 Symbol',
     },
     select: false,
   },
